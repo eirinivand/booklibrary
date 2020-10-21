@@ -19,6 +19,9 @@ public class User implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @Column(nullable = false, name = "first_name")
     private String firstName;
 
@@ -31,4 +34,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "book")
     private Set<UserBookLoan> loanedBooks;
 
+    public User(String firstName, String lastName, String address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+    }
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Strongly Typed by HTML5 UP</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+</head>
+<body>
+<div th:replace="fragment/header :: header"></div>
+<section id="main">
+<div class="container">
+    <header>
+        <h2>Create new <strong>Book:</strong></h2>
+    </header>
+    <div class="row ">
+        <div class="medium">
+            <section>
+                <form action="#" th:action="@{/new-book}" th:object="${newBook}" method="post">
+                    <div class="row gtr-50">
+                        <div class="col-4 col-12-small">
+                            <input name="fname" placeholder="Title" type="text" th:field="*{name}" required/>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input name="total-copies" placeholder="Copies" type="number" min="1" step="1" th:field="*{totalCopies}" required/>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input name="isbn" placeholder="ISBN" type="text" th:field="*{isbn}" required/>
+                        </div>
+                        <div class="col-12">
+                            <textarea name="summary" placeholder="Summary..." th:field="*{summary}" required/>
+                        </div>
+                        <div class="col-12">
+                            <input  class="form-button-submit button icon solid fa-user-plus" type="submit" value="Submit" />
+                            <input type="reset" value="Reset" />
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+</section>
+<div th:replace="fragment/footer :: footer"></div>
+</body>
+</html>

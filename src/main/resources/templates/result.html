@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Strongly Typed by HTML5 UP</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+</head>
+<body>
+<div th:replace="fragment/header :: header">
+
+</div>
+<!-- Banner -->
+<section id="banner">
+
+    <div class="container">
+        <span th:if="${newUser!=null}">
+            <p>Success <p th:text="${newUser?.firstName}"></p></p>
+        </span>
+        <span th:if="${newBook!=null}">
+             <p>Success <p th:text="${newBook?.name}"></p></p>
+        </span>
+        <span th:if="${error!=null}">
+             <p>Fail: <p th:text="${error}"></p></p>
+        </span>
+    </div>
+</section>
+
+<div th:replace="fragment/footer :: footer"></div>
+</body>
+</html>

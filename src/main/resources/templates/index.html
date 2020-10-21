@@ -1,11 +1,76 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+<!--
+	Strongly Typed by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-<head>
-    <meta charset = "ISO-8859-1" />
-    <link href = "css/styles.css" rel = "stylesheet"/>
-    <title>Spring Boot Application</title>
-</head>
-<body>
-<h4>Welcome to Thymeleaf Spring Boot web application</h4>
-</body>
+	<head>
+		<title>Strongly Typed by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="homepage is-preload">
+		<div id="page-wrapper">
+
+			<div th:replace="fragment/header :: header"></div>
+			<!-- Features -->
+				<section id="features">
+					<div class="container">
+						<header>
+							<h2>Humans, behold! This is a simply awesome <strong>Book Library</strong>!</h2>
+						</header>
+						<div class="row aln-center">
+							<div class="col-4 col-6-medium col-12-small">
+
+								<!-- Feature -->
+									<section>
+										<a href="/new-user" class="icon solid fa-5x fa-user-plus" ></a>
+										<br>
+										<br>
+										<header>
+											<h3>Create new user</h3>
+										</header>
+										<p>This is were you may create a new user.</p>
+									</section>
+
+							</div>
+							<div class="col-4 col-6-medium col-12-small">
+
+								<!-- Feature -->
+								<section>
+									<a href="#" class="icon solid fa-5x fa-users-cog" ></a>
+									<br>
+									<br>
+									<header>
+										<h3>Manage users</h3>
+									</header>
+									<p>This is were you can manage all users.</p>
+								</section>
+
+
+							</div>
+							<div class="col-4 col-6-medium col-12-small">
+
+								<!-- Feature -->
+								<section>
+									<a href="#" class="icon solid fa-5x fa-book-reader" ></a>
+									<br>
+									<br>
+									<header>
+										<h3>Manage Books</h3>
+									</header>
+									<p>This is were you can manage all books.</p>
+								</section>
+
+
+							</div>
+						</div>
+					</div>
+				</section>
+
+
+			<div th:replace="fragment/footer :: footer"></div>
+	</body>
 </html>

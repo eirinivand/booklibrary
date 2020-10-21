@@ -27,8 +27,8 @@ public class Book implements Serializable {
     @Column(nullable = false)
     private String summary;
 
-    @Column(nullable = false)
-    private Integer isbn;
+    @Column(nullable = false, unique = true)
+    private String isbn;
 
     @Column(nullable = false, name = "total_copies")
     private Integer totalCopies;
