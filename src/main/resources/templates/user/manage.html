@@ -1,27 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html  xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Strongly Typed by HTML5 UP</title>
+    <title>Book Library: Manage Books</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <link rel="stylesheet" href="assets/css/main.css"/>
+    <meta name="_csrf" th:attr="content=${_csrf.token}"/>
+    <meta name="_csrf_header"  th:attr="content=${_csrf.headerName}"/>
+
 </head>
 <body>
 <div th:replace="fragment/header :: header"></div>
 <section id="main">
-<div class="container">
-    <header>
-        <h2>Manage <strong>Users</strong></h2>
-    </header>
-    <div class="row ">
-        <div class="medium">
-            <section>
+    <div class="container">
+        <header>
+            <h2>Manage <strong>Books</strong></h2>
+        </header>
+        <div class="row ">
+            <div class="medium">
+                <section>
+                    <table>
+                        <tr>
+                            <th> Id</th>
+                            <th> Title</th>
+                            <th> Copies</th>
+                            <th> Loaned Copies</th>
+                            <th> Loaned to Users</th>
+                            <th> Delete</th>
+                        </tr>
+                        <tr th:each="user: ${users}">
+                            <td th:text="${user.id}"/>
+                            <td th:text="${user.firstName}"/>
+                            <td th:text="${user.lastName}"/>
+                            <td>
+                                <span th:if="${user.loanedBooks!=null}">
+                                    <p th:text="${user.loanedBooks.size()}"></p>
+                                </span>
+                            </td>
+                            <td>
+                                <span th:if="${user.loanedBooks!=null}">
+                                    <ul th:each="loan: ${user.loanedBooks}">
+                                        <li th:text="${loan.book}"></li>
+                                    </ul>
+                                </span>
+                            </td>
+                            <td>
 
-            </section>
+                                <a class="icon solid fa-trash-alt" style="color: darkred"
+                                   th:attr="onclick='deleteBook('+${user.id}+',\''+${user.firstName}+'\')'"></a>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </section>
+            </div>
         </div>
     </div>
-</div>
 </section>
+
 <div th:replace="fragment/footer :: footer"></div>
+<script type="text/javascript" th:inline="javascript">
+
+    $(document).ready(function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+
+
+    });
+
+    function deleteBook(userId, userTitle) {
+        var r = confirm("Delete Book " + userTitle);
+        if (r) {
+            $.ajax({
+                url: "/delete-user?id=" + userId,
+                type: "DELETE",
+                success: function (data) {
+                    location.reload();
+                },
+                error:  function (data) {
+                    console.log(data);
+                },
+            });
+        }
+    }
+</script>
 </body>
 </html>

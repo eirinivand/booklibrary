@@ -1,5 +1,6 @@
 package com.eirinivand.booklibrary.services;
 
+import com.eirinivand.booklibrary.entities.Book;
 import com.eirinivand.booklibrary.entities.User;
 import com.eirinivand.booklibrary.repositories.UserRepository;
 import org.hibernate.exception.ConstraintViolationException;
@@ -9,12 +10,17 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
 
     public List<User> findAll() {
 

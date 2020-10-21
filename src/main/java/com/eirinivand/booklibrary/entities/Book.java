@@ -2,12 +2,10 @@ package com.eirinivand.booklibrary.entities;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -36,6 +34,8 @@ public class Book implements Serializable {
     @Column(nullable = false, name = "available_copies")
     private Integer availableCopies;
 
+    @OneToMany(mappedBy = "user")
+    private Set<UserBookLoan> userBookLoans;
 
     @Override
     public boolean equals(Object o) {

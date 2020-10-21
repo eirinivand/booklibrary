@@ -1,40 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html  xmlns:th="http://www.thymeleaf.org">
 <head>
 </head>
 <body><!-- Header -->
-<span th:fragment="header">
+<div th:fragment="header">
+
+
     <section id="header">
         <div class="container">
             <!-- Logo -->
             <h1><a href="/">Book Library</a></h1>
             <!-- Nav -->
-           	<nav id="nav">
-				<ul>
-					<li><a class="icon solid fa-home" href="/"><span>Home</span></a></li>
-					<li>
-						<a href="#"
+            <nav id="nav">
+                <ul>
+                    <li><a class="icon solid fa-home" href="/"><span>Home</span></a></li>
+                    <li>
+                        <a href="#"
                            class="icon solid fa-user-astronaut"><span>User Management</span></a>
-						<ul>
-							<li><a href="/new-user">Create new user</a></li>
-							<li><a href="/manage-users">Manage users</a></li>
-						</ul>
-					</li>
-					<li>
-						<a href="#" class="icon solid fa-book-open"><span>Book Management</span></a>
-						<ul>
-							<li><a href="/new-book">Create new book</a></li>
-							<li><a href="/manage-books">Manage books</a></li>
-							<li><a href="/loan-book">Loan a book</a></li>
-							<li><a href="/return-book">Return a book</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-
+                        <ul>
+                            <li><a href="/new-user"><span>Create new user</span>></a></li>
+                            <li><a href="/manage-users">Manage users</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="icon solid fa-book-open"><span>Book Management</span></a>
+                        <ul>
+                            <li><a href="/new-book">Create new book</a></li>
+                            <li><a href="/manage-books">Manage books</a></li>
+                            <li><a href="/loan-book">Loan a book</a></li>
+                            <li><a href="/return-book">Return a book</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </section>
 
-</span>
+</div>
 </body>
 </html>
