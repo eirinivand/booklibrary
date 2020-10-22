@@ -33,7 +33,7 @@
                             <td th:text="${book.name}"/>
                             <td th:text="${book.totalCopies}"/>
                             <td>
-                                <p th:text="${loans.get(book.getId()).size()}"></p>
+                                <span th:text="${loans.get(book.getId()).size()}"></span>
                             </td>
                             <td>
 
@@ -46,8 +46,8 @@
                                 <a th:if="${loans.get(book.getId()).size() == 0}" class="icon solid fa-trash-alt"
                                    style="color: darkred"
                                    th:attr="onclick='deleteBook('+${book.id}+',\''+${book.name}+'\')'"></a>
-                                <p title="Book is loaned can't be deleted."
-                                   th:if="${loans.get(book.getId()).size() > 0}" class="icon solid fa-ban"></p>
+                                <span title="Book is loaned can't be deleted."
+                                   th:if="${loans.get(book.getId()).size() > 0}" class="icon solid fa-ban"></span>
                             </td>
 
                         </tr>

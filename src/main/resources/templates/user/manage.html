@@ -41,8 +41,8 @@
 
                                 <a th:if="${loans.get(user.getId()).size() == 0}" class="icon solid fa-trash-alt" style="color: darkred"
                                    th:attr="onclick='deleteBook('+${user.id}+',\''+${user.firstName}+'\')'"></a>
-                                <p title="User has loans can't be deleted."
-                                   th:if="${loans.get(user.getId()).size() > 0}" class="icon solid fa-ban"></p>
+                                <span title="User has loans can't be deleted."
+                                   th:if="${loans.get(user.getId()).size() > 0}" class="icon solid fa-ban"></span>
                             </td>
 
                         </tr>
