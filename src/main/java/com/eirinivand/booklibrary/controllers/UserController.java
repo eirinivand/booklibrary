@@ -3,6 +3,7 @@ package com.eirinivand.booklibrary.controllers;
 import com.eirinivand.booklibrary.entities.Book;
 import com.eirinivand.booklibrary.entities.User;
 import com.eirinivand.booklibrary.entities.UserBookLoan;
+import com.eirinivand.booklibrary.services.LoanService;
 import com.eirinivand.booklibrary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -11,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(name = "/user")
@@ -18,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LoanService loanService;
 
     @GetMapping("/new-user")
     public String newUserForm(Model model) {
@@ -40,7 +47,13 @@ public class UserController {
 
     @GetMapping("/manage-users")
     public String manage(Model model) {
+        HashMap<Long, List<Book>> loans = new HashMap<>();
+        ArrayList<UserBookLoan> allLoans = loanService.findAll();
+        for (User b : userService.findAll()) {
+            loans.put(b.getId(), allLoans.stream().filter(l -> b.equals(l.getUser())).map(l -> l.getBook()).collect(Collectors.toList()));
+        }
         model.addAttribute("users", userService.findAll());
+        model.addAttribute("loans", loans);
         return "user/manage";
     }
 
@@ -50,20 +63,20 @@ public class UserController {
         try {
             User user = userService.findById(id).orElse(null);
             if (user == null) {
-                return "Error finding book";
+                return "Error finding user";
             }
             if (user.getLoanedBooks() == null || (user.getLoanedBooks() != null && user.getLoanedBooks().size() == 0)) {
                 userService.deleteById(user.getId());
-                return "" + user.getFirstName()+ " " + user.getLastName();
+                return "deleted";
             } else {
                 ArrayList<Book> loanedTo = new ArrayList<>();
                 for (UserBookLoan userbl : user.getLoanedBooks()) {
                     loanedTo.add(userbl.getBook());
                 }
-                return "Not deleted Book is on loan to users: " + loanedTo.toString();
+                return "Not deleted user has loaned: " + loanedTo.toString();
             }
         } catch (DataIntegrityViolationException ex) {
-            return "Book could not be deleted";
+            return "User could not be deleted";
         }
 
     }

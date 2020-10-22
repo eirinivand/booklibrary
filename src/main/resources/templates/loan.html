@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book Library: Loan Book</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+    <meta name="_csrf" th:attr="content=${_csrf.token}"/>
+    <meta name="_csrf_header" th:attr="content=${_csrf.headerName}"/>
+</head>
+<body>
+<div th:replace="fragment/header :: header"></div>
+<section id="main">
+    <div class="container">
+        <header>
+            <h2>Loan <strong>Book</strong></h2>
+        </header>
+        <div class="row ">
+            <div class="medium">
+                <section>
+                    <table>
+                        <tr>
+                            <th> Id</th>
+                            <th> Title</th>
+                            <th> Available</th>
+                            <th> Loan to User</th>
+                            <th> Action</th>
+                        </tr>
+                        <tr th:each="book: ${books}">
+                            <td th:text="${book.id}"/>
+                            <td th:text="${book.name}"/>
+                            <td th:text="${book.availableCopies}"/>
+                            <td>
+                                <select th:if="${availableLoans.get(book.getId()).size()> 0}" th:id="'loan'+${book.id}">
+                                    <option th:each="user: ${availableLoans.get(book.getId())}" th:value="${user.id}"
+                                            th:text="${user.id} + ':'+ ${user.firstName} + ' ' + ${user.lastName}"></option>
+                                </select>
+                            </td>
+                            <td>
+                                <a th:if="${book.availableCopies > 0 && availableLoans.get(book.getId()).size()> 0}"
+                                   class="icon solid fa-cart-plus" style="color: forestgreen"
+                                   th:attr="onclick='saveLoan('+${book.id}+')'">
+                                    Accept Loan
+                                </a>
+                                <p title="No more copies available"
+                                   th:if="${book.availableCopies == 0}" class="icon solid fa-ban"></p>
+                                <p title="All users have loaned this book."
+                                   th:if="${availableLoans.get(book.getId()).size()== 0} "
+                                   class="icon solid fa-ban"></p>
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:replace="fragment/footer :: footer"></div>
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+
+
+    });
+
+    function saveLoan(bId, uId) {
+        $.ajax({
+            url: "/loan-book?bookId=" + bId + "&userId=" + $('#loan' + bId).children("option:selected").val(),
+            type: "POST",
+            success: function (data) {
+                if (data === 'loaned') {
+                    location.reload();
+                } else {
+
+                    console.log(data);
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            },
+        });
+    }
+
+</script>
+</body>
+</html>

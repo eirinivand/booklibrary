@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Book Library: Manage Books</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <link rel="stylesheet" href="assets/css/main.css"/>
     <meta name="_csrf" th:attr="content=${_csrf.token}"/>
-    <meta name="_csrf_header"  th:attr="content=${_csrf.headerName}"/>
+    <meta name="_csrf_header" th:attr="content=${_csrf.headerName}"/>
 
 </head>
 <body>
@@ -33,21 +33,21 @@
                             <td th:text="${book.name}"/>
                             <td th:text="${book.totalCopies}"/>
                             <td>
-                                <span th:if="${book.userBookLoans!=null}">
-                                    <p th:text="${book.userBookLoans.size()}"></p>
-                                </span>
-                            </td>
-                            <td>
-                                <span th:if="${book.userBookLoans!=null}">
-                                    <ul th:each="loan: ${book.userBookLoans}">
-                                        <li th:text="${loan.user}"></li>
-                                    </ul>
-                                </span>
+                                <p th:text="${loans.get(book.getId()).size()}"></p>
                             </td>
                             <td>
 
-                                <a class="icon solid fa-trash-alt" style="color: darkred"
+                                <span th:each="user: ${loans.get(book.getId())}"><span
+                                        th:text="${user.firstName}+ ', '"></span></span>
+
+                            </td>
+                            <td>
+
+                                <a th:if="${loans.get(book.getId()).size() == 0}" class="icon solid fa-trash-alt"
+                                   style="color: darkred"
                                    th:attr="onclick='deleteBook('+${book.id}+',\''+${book.name}+'\')'"></a>
+                                <p title="Book is loaned can't be deleted."
+                                   th:if="${loans.get(book.getId()).size() > 0}" class="icon solid fa-ban"></p>
                             </td>
 
                         </tr>
@@ -80,10 +80,14 @@
                 url: "/delete-book?id=" + bookId,
                 type: "DELETE",
                 success: function (data) {
-                    location.reload();
+                    if (data === 'deleted') {
+                        location.reload();
+                    } else {
+                        console.log(data);
+                    }
                 },
-                error:  function (data) {
-                    console.log(data);
+                error: function (data) {
+
                 },
             });
         }

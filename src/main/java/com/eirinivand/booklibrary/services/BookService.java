@@ -45,4 +45,8 @@ public class BookService {
 
         bookRepository.deleteById(bookId);
     }
+
+    public int updateAvailableCopies(Book book, Integer copies){
+       return bookRepository.setAvailableCopiesForBookId(copies, book.getId());
+    }
 }

@@ -1,14 +1,11 @@
 package com.eirinivand.booklibrary.services;
 
-import com.eirinivand.booklibrary.entities.Book;
 import com.eirinivand.booklibrary.entities.User;
 import com.eirinivand.booklibrary.repositories.UserRepository;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,19 +19,17 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public List<User> findAll() {
+    public ArrayList<User> findAll() {
 
         Iterable<User> it = userRepository.findAll();
 
-        ArrayList<User> users = new ArrayList<User>();
+        ArrayList<User> users = new ArrayList<>();
         it.forEach(e -> users.add(e));
 
         return users;
     }
 
     public User save(User user) {
-        user.setLoanedBooks(new HashSet<>());
-
         User newUser = userRepository.save(user);
 
         return newUser;
