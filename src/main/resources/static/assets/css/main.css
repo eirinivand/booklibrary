@@ -1654,7 +1654,7 @@ input, select, textarea {
 
 /* Form */
 
-	form label {
+	.form label {
 		font-weight: 600;
 		text-transform: uppercase;
 		color: #888;
@@ -1662,11 +1662,12 @@ input, select, textarea {
 		margin: 0 0 1em 0;
 	}
 
-	form input[type="text"],
-	form input[type="email"],
-	form input[type="password"],
-	form select,
-	form textarea {
+	.form input[type="text"],
+	.form input[type="number"],
+	.form input[type="email"],
+	.form input[type="password"],
+	.form select,
+	.form textarea {
 		-moz-transition: background-color 0.25s ease-in-out;
 		-webkit-transition: background-color 0.25s ease-in-out;
 		-ms-transition: background-color 0.25s ease-in-out;
@@ -1684,34 +1685,35 @@ input, select, textarea {
 
 		form input[type="text"]:focus,
 		form input[type="email"]:focus,
+		form input[type="number"]:focus,
 		form input[type="password"]:focus,
 		form select:focus,
 		form textarea:focus {
 			background: #f0f0f0;
 		}
 
-	form textarea {
+	.form textarea {
 		min-height: 11em;
 	}
 
-	form ::-webkit-input-placeholder {
+	.form ::-webkit-input-placeholder {
 		color: #555 !important;
 		line-height: 1.35em;
 	}
 
-	form :-moz-placeholder {
+	.form :-moz-placeholder {
 		color: #555 !important;
 	}
 
-	form ::-moz-placeholder {
+	.form ::-moz-placeholder {
 		color: #555 !important;
 	}
 
-	form :-ms-input-placeholder {
+	.form :-ms-input-placeholder {
 		color: #555 !important;
 	}
 
-	form ::-moz-focus-inner {
+	.form ::-moz-focus-inner {
 		border: 0;
 	}
 
